@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+TRAPPED=false
+trap "if $TRAPPED; then echo 'Exiting...'; exit 0; else echo 'Caught Ctrl+C - stopping server, restarting...'; TRAPPED=true; fi" SIGINT
+
+
+while true; do
+  echo "Starting server..."
+  npm run dev
+if $TRAPPED; then
+  TRAPPED=false
+  continue
+fi
+
+  echo ""
+  echo "Server stopped. Press [Ctrl+C] again to exit, or wait 3 seconds to restart..."
+  sleep 3
+done
