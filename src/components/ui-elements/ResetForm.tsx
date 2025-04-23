@@ -17,7 +17,7 @@ const ResetForm = () => {
 
 
     const resetPassword = async (userData: FormFields) => {
-        const request = await api.post(`${baseUrl}/reset-password`, userData)
+        const request = await api.post(`${baseUrl}/reset-password`, userData).then((res) => console.log(res.data))
 
         return request
     }
