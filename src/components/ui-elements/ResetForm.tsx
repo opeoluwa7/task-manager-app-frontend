@@ -5,12 +5,15 @@ import { AxiosError, isAxiosError } from "axios"
 import baseUrl from "../../api/baseurl"
 import { z } from "zod"
 import { resetPasswordSchema } from "../../Schemas/userSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 const ResetForm = () => {
 
     type FormFields = z.infer<typeof resetPasswordSchema>
 
-    const { setError, register, reset, handleSubmit, formState: {errors} } = useForm<FormFields>()
+    const { setError, register, reset, handleSubmit, formState: {errors} } = useForm<FormFields>({
+        resolver: zodResolver(resetPasswordSchema)
+    })
 
 
     const resetPassword = (userData: FormFields) => {
