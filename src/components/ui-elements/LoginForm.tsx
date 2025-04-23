@@ -49,7 +49,7 @@ const LoginForm = () => {
       },
       onError: (error: Error | AxiosError ) => {
         if (isAxiosError(error)) {
-          const err = error.response?.data.error; 
+          const err = error.response?.data.error;  
           
           if (err.email) {
             const emailErr = err.email._errors[0]
@@ -69,18 +69,13 @@ const LoginForm = () => {
             })
           } 
 
-
-          if (error.response?.data.error) {
-            const err = error.response?.data.error
-            setError("root", {
-              type: 'server',
-              message: err
-            })
-          };
-
+          setError("root", {
+            type: 'server',
+            message: err
+          })
           
           const serverError = []; 
-          serverError.push(error.response?.data.error)
+          serverError.push(err)
           
           const value: any = Object.values(serverError[0])
 

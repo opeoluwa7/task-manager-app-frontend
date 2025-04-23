@@ -1,0 +1,65 @@
+import { useMutation } from "@tanstack/react-query"
+import { SubmitHandler, useForm } from "react-hook-form"
+import api from "../../api/axios"
+import { AxiosError, isAxiosError } from "axios"
+import baseUrl from "../../api/baseurl"
+import { z } from "zod"
+import { resetPasswordSchema } from "../../Schemas/userSchema"
+
+const ResetForm = () => {
+
+    type FormFields = z.infer<typeof resetPasswordSchema>
+
+    const { setError, register, reset, handleSubmit, formState: {errors} } = useForm<FormFields>()
+
+
+    const resetPassword = (userData: FormFields) => {
+        const request = api.post(baseUrl + "/reset-password", userData)
+
+        return request
+    }
+
+    const { mutate } = useMutation({
+        mutationFn: resetPassword,
+        onSuccess: () => {
+            alert("Password Reset Successful!")
+            reset()
+        },
+        onError: (error: Error | AxiosError) => {
+            if (isAxiosError(error)) {
+                const err = error.response?.data.error;
+
+                console.log(err);
+            } else {
+                setError("root", {
+                    type: 'server',
+                    message: `${error}`
+                })
+            }
+        }
+    })
+
+    const onSubmit: SubmitHandler<FormFields> = (data, e) => {
+        e?.preventDefault();
+
+        mutate(data)
+    }
+
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register("password")} type="password" name="password" placeholder="Enter your new password" />
+            {errors.password && <span className="text-red-500">{errors.password.message}</span>}
+            <br />
+
+            <input {...register("confirmPassword")} type="password" name="password" placeholder="Confirm your new password" />
+            {errors.confirmPassword && <span className="text-red-500">{errors.confirmPassword.message}</span>}
+            <br />
+            <input type="submit" />
+            <br />
+            {errors.root && <span className="text-red-500">{errors.root.message}</span>}
+        </form>
+    )
+}
+
+export default ResetForm
