@@ -53,11 +53,7 @@ const ResetForm = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <input {...register("password")} type="password" name="password" placeholder="Enter your new password" />
             {errors.password && <span className="text-red-500">{errors.password.message}</span>}
-            <br />
-
-            <input {...register("confirmPassword")} type="password" name="password" placeholder="Confirm your new password" />
-            {errors.confirmPassword && <span className="text-red-500">{errors.confirmPassword.message}</span>}
-            <br />
+            <br /> 
             <input type="submit" />
             <br />
             {errors.root && <span className="text-red-500">{errors.root.message}</span>}
