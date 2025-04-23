@@ -33,11 +33,10 @@ const ResetForm = () => {
                 const err = error.response?.data.error;
 
                 if (err) {
-                    const error = err.error
 
                     setError("root", {
                         type: 'server',
-                        message: error
+                        message: err
                     })
                 }
             } else {
