@@ -32,7 +32,14 @@ const ResetForm = () => {
             if (isAxiosError(error)) {
                 const err = error.response?.data.error;
 
-                console.log(err);
+                if (err) {
+                    const error = err.error
+
+                    setError("root", {
+                        type: 'server',
+                        message: error
+                    })
+                }
             } else {
                 setError("root", {
                     type: 'server',
