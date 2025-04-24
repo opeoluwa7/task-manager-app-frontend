@@ -11,7 +11,7 @@ const ResetForm = () => {
 
     type FormFields = z.infer<typeof resetPasswordSchema>
 
-    const { setError, register, reset, handleSubmit, formState: {errors} } = useForm<FormFields>({
+    const { setError, register, reset, handleSubmit, formState: {errors, isSubmitting} } = useForm<FormFields>({
         resolver: zodResolver(resetPasswordSchema)
     })
 
@@ -52,11 +52,11 @@ const ResetForm = () => {
 
 
     return (
-        <form className="flex flex-col w-[60%]" onSubmit={handleSubmit(onSubmit)}>
-            <input className="input small-text" {...register("password")} type="password" name="password" placeholder="Enter your new password" />
+        <form className="flex flex-col w-full  items-center" onSubmit={handleSubmit(onSubmit)}>
+            <input className="input small-text w-[80%]" {...register("password")} type="password" name="password" placeholder="Enter your new password" />
             {errors.password && <span className="text-red-500">{errors.password.message}</span>}
             <br /> 
-            <input className="base-text" type="submit" />
+            <button disabled={isSubmitting} type="submit" className="base-text"> {isSubmitting ? "Loading..." : "Submit" } </button>
             <br />
             {errors.root && <span className="text-red-500">{errors.root.message}</span>}
         </form>
