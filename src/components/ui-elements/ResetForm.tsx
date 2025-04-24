@@ -52,11 +52,11 @@ const ResetForm = () => {
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("password")} type="password" name="password" placeholder="Enter your new password" />
+        <form className="flex flex-col w-[60%]" onSubmit={handleSubmit(onSubmit)}>
+            <input className="input small-text" {...register("password")} type="password" name="password" placeholder="Enter your new password" />
             {errors.password && <span className="text-red-500">{errors.password.message}</span>}
             <br /> 
-            <input type="submit" />
+            <input className="base-text" type="submit" />
             <br />
             {errors.root && <span className="text-red-500">{errors.root.message}</span>}
         </form>

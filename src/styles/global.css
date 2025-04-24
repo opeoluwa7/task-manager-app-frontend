@@ -4,5 +4,17 @@
 
 
 .input {
-    @apply border border-black
+    @apply border border-black p-4 rounded-md
+}
+
+.bold-text {
+    @apply text-3xl
+}
+
+.base-text {
+    @apply text-lg
+}
+
+.small-text {
+    @apply text-base
 }
