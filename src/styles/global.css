@@ -4,17 +4,25 @@
 
 
 .input {
-    @apply border border-black p-4 rounded-md
+    @apply border border-black p-4 rounded-md text-sm text-black w-full bg-gray-100 
 }
 
-.bold-text {
-    @apply text-3xl
+.overlay {
+    @apply bg-black opacity-40 z-20 absolute h-full w-full
 }
 
-.base-text {
-    @apply text-lg
+.error {
+    @apply text-red-500 text-center
 }
 
-.small-text {
-    @apply text-base
+.main {
+    @apply flex flex-col items-center justify-center h-screen bg-gray-600
+}
+
+.form-card {
+    @apply bg-gray-700 p-8 w-[70%] h-[40rem] flex flex-col justify-center text-white rounded-xl z-50
+}
+
+.button {
+    @apply bg-gray-900 p-4 rounded-lg w-[50%] relative top-6 text-base font-semibold
 }

@@ -1,18 +1,24 @@
 
-import LoginForm from "../../components/ui-elements/LoginForm";
+import LoginForm from "../../components/ui-elements/Forms/LoginForm";
 
 const Login = () => {
   
  
   
     return (
-      <main>
-        <header>
-          <h1> Task Manager </h1>
-          <h2> Welcome back! Login </h2>
-        </header>
+      <main className="main">
+        <section className="form-card">
+          <header className="flex flex-col items-center relative bottom-8" >
+            <h1 className="text-3xl font-bold"> Task Manager </h1>
+            <br />
+            <p className="text-lg font-semibold"> <em>Welcome back</em>, log in </p>
+          </header>
+          <br />
 
-       <LoginForm />
+          <LoginForm />
+        </section>
+
+        <div className="overlay" />
       </main>
     )
 }

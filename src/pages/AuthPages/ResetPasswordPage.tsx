@@ -1,13 +1,17 @@
-import ResetForm from "../../components/ui-elements/ResetForm"
+import ResetForm from "../../components/ui-elements/Forms/ResetForm"
 
 
 const ResetPasswordPage = () => {
   return (
-    <div className="w-full flex flex-col items-center mt-8">
-      <h1 className="bold-text">Reset your password</h1>
-      <br />
-      <ResetForm />
-    </div>
+    <main className="main">
+      <section className="form-card !h-[30rem]">
+        <h1 className="text-3xl text-center">Reset your password</h1>
+        <br />
+        <br />
+        <ResetForm />
+      </section>
+      <div className="overlay" />
+    </main>
   )
 
 }

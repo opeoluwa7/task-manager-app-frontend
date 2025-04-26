@@ -1,11 +1,11 @@
 import { SubmitHandler ,useForm } from "react-hook-form";
-import Button from "./ButtonComponent";
-import  loginSchema  from "../../Schemas/userSchema";
+import { Link, useNavigate } from "react-router-dom";
+import  { loginSchema }  from "../../../Schemas/userSchema";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {AxiosError, isAxiosError} from "axios";
 import { useMutation } from "@tanstack/react-query";
-import api from "../../api/axios";
+import api from "../../../api/axios";
 
 
 const LoginForm = () => {
@@ -15,12 +15,7 @@ const LoginForm = () => {
     type FormFields = z.infer<typeof loginSchema>;
 
     const {register, setError, handleSubmit, formState: {isSubmitting, errors}, reset} = useForm<FormFields>({
-    resolver: zodResolver(loginSchema), 
-    mode: 'all',
-    defaultValues: {
-      email: '',
-      password: ''
-    }
+    resolver: zodResolver(loginSchema)
     });
     
     type ServerResponse = {
@@ -34,18 +29,20 @@ const LoginForm = () => {
     }
 
     const loginUser = async(userData: FormFields) => {
-      const response = await api.post<ServerResponse>('https://task-manager-api-2025.up.railway.app/api/login', userData) 
-      .then((res) => console.log(res.data));
+      const response = await api.post<ServerResponse>('https://task-manager-api-2025.up.railway.app/api/login', userData);
 
-      return response
+      return response.data
     } 
  
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
       mutationFn:  loginUser,
-      onSuccess: () => {
-        alert("Successful!!")
+      onSuccess: (data) => {
+        const navigate = useNavigate();
+
+        alert(data.message)
         reset()
+        navigate("/homepage")
       },
       onError: (error: Error | AxiosError ) => {
         if (isAxiosError(error)) {
@@ -94,23 +91,36 @@ const LoginForm = () => {
       }
     })
 
-    const onSubmit: SubmitHandler<FormFields> = (data: FormFields, e) => {
-      e?.preventDefault()
-      mutate(data)
-     
+    const onSubmit: SubmitHandler<FormFields> = (data: FormFields) => {
+      mutate(data) 
 
     }
 
     return(
-      <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col items-center w-full" onSubmit={handleSubmit(onSubmit)}>
       <input className="input" {...register("email")} name="email" type="text" placeholder="Enter your email" />
+
+      <br />
+
       {errors.email && <span className="text-red-500">{errors.email?.message}</span>}
+
       <br />
+
       <input className="input" {...register("password")} name="password" type="password" placeholder="Enter your password" />
-      {errors.password && <span className="text-red-500">{errors.password?.message}</span>}
+      <Link className="text-end text-yellow-400 w-full text-sm relative top-2" to="/forgot-password">Forgot Password?</Link> 
+
       <br />
-      <Button isDisabled={isSubmitting} buttonType="submit" text={isSubmitting ? "Loading" : "Submit"} />
-      {errors.root && <span className="text-red-500">{errors.root.message}</span>}
+
+      {errors.password && <span className="error">{errors.password?.message}</span>}
+
+      <button disabled={isSubmitting} type="submit" className="button" > {isPending ? "processing..." : "Submit"} </button>
+      <br />
+
+
+
+
+      <br />
+      {errors.root && <span className="error">{errors.root.message}</span>}
       </form>
     ) 
   }

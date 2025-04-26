@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query"
 import { SubmitHandler, useForm } from "react-hook-form"
-import api from "../../api/axios"
+import api from "../../../api/axios"
 import { AxiosError, isAxiosError } from "axios"
-import baseUrl from "../../api/baseurl"
+import baseUrl from "../../../api/baseurl"
 import { z } from "zod"
-import { resetPasswordSchema } from "../../Schemas/userSchema"
+import { resetPasswordSchema } from "../../../Schemas/userSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 const ResetForm = () => {
@@ -22,7 +22,7 @@ const ResetForm = () => {
         return request
     }
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: resetPassword,
         onSuccess: () => {
             alert("Password Reset Successful!")
@@ -54,11 +54,12 @@ const ResetForm = () => {
     return (
         <form className="flex flex-col w-full  items-center" onSubmit={handleSubmit(onSubmit)}>
             <input className="input small-text w-[80%]" {...register("password")} type="password" name="password" placeholder="Enter your new password" />
-            {errors.password && <span className="text-red-500">{errors.password.message}</span>}
+            {errors.password && <span className="error">{errors.password.message}</span>}
             <br /> 
-            <button disabled={isSubmitting} type="submit" className="base-text"> {isSubmitting ? "Loading..." : "Submit" } </button>
+            <button disabled={isSubmitting} type="submit" className="button"> {isPending ? "processing..." : "Submit" } </button>
             <br />
-            {errors.root && <span className="text-red-500">{errors.root.message}</span>}
+            <br />
+            {errors.root && <span className="error">{errors.root.message}</span>}
         </form>
     )
 }
