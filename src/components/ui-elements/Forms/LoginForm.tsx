@@ -115,8 +115,9 @@ const LoginForm = () => {
 
       <button disabled={isSubmitting} type="submit" className="button" > {isPending ? "processing..." : "Submit"} </button>
       <br />
+      <br />
 
-
+       <p className="text-center text-sm"> Never been here before? <Link className="text-yellow-400 text-base relative left-2" to="/register">sign up</Link> </p>
 
 
       <br />

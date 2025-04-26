@@ -7,6 +7,7 @@ import {AxiosError, isAxiosError} from "axios";
 import { useMutation } from "@tanstack/react-query";
 import api from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const RegisterForm = () => {
@@ -110,6 +111,8 @@ const RegisterForm = () => {
             <button disabled={isSubmitting} type="submit" className="button" > {isPending ? "processing" : "Submit"} </button>
             <br />
             <br  />
+
+             <p className="text-center text-sm"> Already a member? <Link className="text-yellow-400 text-base relative left-2" to="/">log in</Link> </p>
 
             {errors.root && <span className="error">{errors.root.message}</span>}
         </form>
