@@ -17,15 +17,15 @@ const ResetForm = () => {
 
 
     const resetPassword = async (userData: FormFields) => {
-        const request = await api.post(`${baseUrl}/api/reset-password`, userData).then((res) => console.log(res.data))
+        const request = await api.post(`${baseUrl}/api/reset-password`, userData)
 
-        return request
+        return request.data
     }
 
     const { mutate, isPending } = useMutation({
         mutationFn: resetPassword,
-        onSuccess: () => {
-            alert("Password Reset Successful!")
+        onSuccess: (data) => {
+            alert(data.message)
             reset()
         },
         onError: (error: Error | AxiosError) => {

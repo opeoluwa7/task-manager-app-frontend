@@ -18,15 +18,15 @@ const ForgotPasswordForm = () => {
 
 
   const forgotPassword = async (userData: FormFields) => {
-    const request = await api.post(`${baseUrl}/api/forgot-password`, userData).then((res) => console.log(res.data))
+    const request = await api.post(`${baseUrl}/api/forgot-password`, userData)
 
-    return request
+    return request.data
   }
 
   const { mutate, isPending } = useMutation({
     mutationFn: forgotPassword,
-    onSuccess: () => {
-      alert("Password Reset Successful!")
+    onSuccess: (data) => {
+      alert(data.message)
       reset()
     },
     onError: (error: Error | AxiosError) => {
