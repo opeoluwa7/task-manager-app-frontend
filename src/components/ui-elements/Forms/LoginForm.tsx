@@ -34,11 +34,11 @@ const LoginForm = () => {
       return response.data
     } 
  
+    const navigate = useNavigate();
 
     const { mutate, isPending } = useMutation({
       mutationFn:  loginUser,
       onSuccess: (data) => {
-        const navigate = useNavigate();
 
         alert(data.message)
         reset()
