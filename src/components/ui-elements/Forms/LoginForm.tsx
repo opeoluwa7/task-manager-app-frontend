@@ -17,36 +17,26 @@ const LoginForm = () => {
     const {register, setError, handleSubmit, formState: {isSubmitting, errors}, reset} = useForm<FormFields>({
     resolver: zodResolver(loginSchema)
     });
-    
-    type ServerResponse = {
-      success: boolean,
-      message: string,
-      user: {
-        user_id: number,
-        name: string,
-        email: string
-      }
-    }
 
     const loginUser = async(userData: FormFields) => {
-      const response = await api.post<ServerResponse>('https://task-manager-api-2025.up.railway.app/api/login', userData);
+      const response = await api.post('https://task-manager-api-2025.up.railway.app/api/login', userData);
 
       return response.data
     } 
  
-
+    const navigate = useNavigate();
+  
     const { mutate, isPending } = useMutation({
       mutationFn:  loginUser,
       onSuccess: (data) => {
-        const navigate = useNavigate();
-
         alert(data.message)
         reset()
         navigate("/homepage")
       },
       onError: (error: Error | AxiosError ) => {
         if (isAxiosError(error)) {
-          const err = error.response?.data.error;  
+          const err = error.response?.data.error; 
+          console.error(err)
           
           if (err.email) {
             const emailErr = err.email._errors[0]

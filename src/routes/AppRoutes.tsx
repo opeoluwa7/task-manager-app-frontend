@@ -7,8 +7,13 @@ import ResetPasswordPage from "../pages/AuthPages/ResetPasswordPage.tsx";
 import HomePage from "../pages/BodyPages/HomePage.tsx";
 import ForgotPasswordPage from "../pages/AuthPages/ForgotPasswordPage.tsx";
 
+
 const AppRoutes = () => {
+
+
+
   return(
+    <>
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -16,6 +21,9 @@ const AppRoutes = () => {
       <Route path="/homepage" element={<HomePage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
     </Routes>
+
+
+    </>
   )
 }
 

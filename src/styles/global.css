@@ -20,7 +20,7 @@
 }
 
 .form-card {
-    @apply bg-gray-700 p-8 w-[90%] h-auto flex flex-col justify-center text-white rounded-xl z-50
+    @apply bg-gray-700 p-8 w-[90%] h-auto flex flex-col justify-center text-white rounded-xl z-40
 }
 
 .button {

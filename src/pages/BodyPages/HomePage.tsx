@@ -1,8 +1,18 @@
 
+
 const HomePage = () => {
+
+
     
     return (
-        <div>Hello</div>
+        <main className="main">
+            <section className="">
+                <h1> Homepage </h1>
+
+
+            </section>
+            <div className="overlay" />
+        </main>
         
     )
 }
